@@ -101,10 +101,15 @@ getSSI<-function(files,cordex_25){
     
     #rbind into the outer data frame, define
     
-    outdata.all<-rbind(outdata.SM,out.dtf)
+    outdata.SM<-rbind(outdata.SM,out.dtf)
     
   }
   
   close(pb)
   
 }
+
+# seelect the SSI values that are negative and get frequency count of try days
+# Care needs to be taken that the Argument outdata.SM should be for a desired time span
+outdata.SM$dry_days <- apply(outdata.SM[,c(5:length(names(outdata.SM)))],1,function(x)length(x[x < 0]))
+
